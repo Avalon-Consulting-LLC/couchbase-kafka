@@ -22,7 +22,7 @@ public class KafkaAlertConsumer implements Runnable{
 
     public void run() {
         for (MessageAndMetadata<byte[], byte[]> message : stream) {
-            String content = new String(message.message());
+            String content = new String(message.message(), Charset.forName("UTF-8"));
             JSONObject json = new JSONObject(content);
             Double amount = json.getDouble("amount");
 
