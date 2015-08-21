@@ -4,6 +4,8 @@ import kafka.consumer.KafkaStream;
 import kafka.message.MessageAndMetadata;
 import org.json.JSONObject;
 
+import java.nio.charset.Charset;
+
 /**
  * Created by kruthar on 8/20/15.
  */
@@ -25,7 +27,7 @@ public class KafkaAlertConsumer implements Runnable{
             Double amount = json.getDouble("amount");
 
             if (amount > ALERT_LIMIT) {
-                System.out.println("Thread " + threadNum + " caught amount limit: " + message);
+                System.out.println("Thread " + threadNum + " caught amount limit: " + content);
             }
         }
     }
