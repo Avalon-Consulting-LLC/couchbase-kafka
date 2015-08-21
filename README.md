@@ -72,7 +72,7 @@ We will start a basic console consumer to monitor the Couchbase documents coming
 ```sh
 cd vagrant 
 vagrant ssh kafka
-/opt/kafka_2.10-0.8.2.0/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic transactions
+/opt/kafka_2.10-0.8.2.0/bin/kafka-console-consumer.sh --zookeeper kafka.vagrant:2181 --topic transactions
 ```
 
 #### Window 3 - The Alerter Application
@@ -90,8 +90,7 @@ Once the previous three windows are running, we are ready to start pushing data 
 ```sh
 cd vagrant
 vagrant ssh couchbase
-cd /vagrant
-python send_transactions.py
+python /vagrant/send_transactions.py /vagrant/transactions.json
 ```
 
 As the documents are added to Couchbase you should see them in the console consumer in Window 2, and when you hit a document that has an amount greater then $9000.00 you should see a message in the alerter application in Window 3.
