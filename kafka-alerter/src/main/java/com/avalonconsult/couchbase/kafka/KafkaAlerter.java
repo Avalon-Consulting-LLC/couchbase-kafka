@@ -3,11 +3,10 @@ package com.avalonconsult.couchbase.kafka;
 import kafka.consumer.Consumer;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.KafkaStream;
+import kafka.consumer.Whitelist;
 import kafka.javaapi.consumer.ConsumerConnector;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -28,11 +27,7 @@ public class KafkaAlerter {
 
         ConsumerConnector consumer = Consumer.createJavaConsumerConnector(new ConsumerConfig(props));
 
-        Map<String, Integer> topicThreadMap = new HashMap<String, Integer>();
-        topicThreadMap.put(KAFKA_TOPIC, NUM_THREADS);
-
-        Map<String, List<KafkaStream<byte[], byte[]>>> consumerStreamMap = consumer.createMessageStreams(topicThreadMap);
-        List<KafkaStream<byte[], byte[]>> consumerStreams = consumerStreamMap.get(KAFKA_TOPIC);
+        List<KafkaStream<byte[], byte[]>> consumerStreams = consumer.createMessageStreamsByFilter(new Whitelist("^" + KAFKA_TOPIC + "$"), NUM_THREADS);
 
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
