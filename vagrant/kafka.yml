@@ -18,10 +18,10 @@
     unarchive: src=/vagrant/deps/kafka_2.10-0.8.2.0.tgz dest=/opt/ copy=no
 
   - name: Start Zookeeper Server
-    shell: nohup /opt/kafka_2.10-0.8.2.0/bin/zookeeper-server-start.sh /opt/kafka_2.10-0.8.2.0/config/zookeeper.properties &
+    shell: /opt/kafka_2.10-0.8.2.0/bin/zookeeper-server-start.sh -daemon /opt/kafka_2.10-0.8.2.0/config/zookeeper.properties
 
   - name: Start Kafka Server
-    shell: nohup /opt/kafka_2.10-0.8.2.0/bin/kafka-server-start.sh /opt/kafka_2.10-0.8.2.0/config/server.properties &
+    shell: /opt/kafka_2.10-0.8.2.0/bin/kafka-server-start.sh -daemon /opt/kafka_2.10-0.8.2.0/config/server.properties
 
   - name: Create transactions topic
     shell: /opt/kafka_2.10-0.8.2.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic transactions
