@@ -59,5 +59,10 @@
             <artifactId>kafka_2.10</artifactId>
             <version>0.8.2.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20140107</version>
+        </dependency>
     </dependencies>
 </project>
